@@ -395,9 +395,15 @@ SELECT `school_db_student`.`id`,
 # Print out the instructors full name and number of courses to the console
 def bonus_problem(request):
   
-   id_count = Course.objects.filter(instrutor_id__lt=2)
+   #yeilds all instructor id's. yields a count of the 
+  instructor_count = Instructor.objects.annotate(id_num = Count("course")).filter(id_num = 1).distinct()
+  for inst in instructor_count:
+    print(f'''
+    Instructor Name: {inst.first_name} {inst.last_name}
+    Courses: {inst.id_num}
+    ''')
   
-   return complete(request)
+  return complete(request)
 
 # Supporting Query Method Documentation:
 """
