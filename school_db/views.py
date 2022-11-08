@@ -59,7 +59,10 @@ SELECT `school_db_student`.`id`,
 # Print out each student's full name and gpa to the terminal
 def problem_one(request):
 
-    return complete(request)
+  students_gt_three = Student.objects.filter(gpa__gt = 3.0).order_by("-gpa")
+  for student in students_gt_three:
+    print(f"Full Name: {student.first_name} {student.last_name} GPA: {student.gpa}!")
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -96,10 +99,13 @@ SELECT `school_db_student`.`id`,
 # Find all instructors hired prior to 2010
 # Order by hire date ascending
 # Print out the instructor's full name and hire date to the terminal
+
 def problem_two(request):
 
-    return complete(request)
-
+  instructors_chosen = Instructor.objects.filter(hire_date__lt = '2010-01-01').order_by("hire_date")
+  for instructor in instructors_chosen:
+    print(f"Full Name: {instructor.first_name} {instructor.last_name}: hired on: {instructor.hire_date}")
+  return complete(request)
 
 # Supporting Query Method Documentation:
 """
@@ -139,8 +145,13 @@ SELECT `school_db_instructor`.`id`,
 # (Do not hard code his name in the print)
 def problem_three(request):
 
-    return complete(request)
+  
+  courses = Course.objects.filter(instructor_id = 2)
+  print(f"{Instructor.objects.get(pk = 2).first_name} {Instructor.objects.get(pk = 2).last_name}:") 
+  for course in courses:
+    print(course.name)
 
+  return complete(request)
 
 # Supporting Query Method Documentation:
 """
@@ -185,7 +196,14 @@ SELECT `school_db_instructor`.`id`,
 # Get the count of students, courses, and instructors and print them in the terminal
 def problem_four(request):
 
-    return complete(request)
+  student_count = Student.objects.count()
+  course_count = Course.objects.count()
+  instructor_count = Instructor.objects.count()
+
+  print(f"Students Count :{student_count}\nCourses Count: {course_count} \nInstructors Count: {instructor_count}")
+
+
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
