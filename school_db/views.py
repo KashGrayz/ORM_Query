@@ -246,8 +246,14 @@ SELECT COUNT(*) AS `__count`
 # Print the new student's id, full name, year, and gpa to the terminal
 # NOTE every time you execute this function a duplicate student will be created with a different primary key number
 def problem_five(request):
-
-    return complete(request)
+  #student = Student.objects.create(id = 11, first_name ='Kash', last_name ='Grays', year = 14, gpa = 3.6)
+  print(f'''
+  Id: {Student.objects.get(id=11).id}\n 
+  Full Name: {Student.objects.get(id=11).first_name} {Student.objects.get(id=11).last_name}\n 
+  Year: {Student.objects.get(id=11).year}\n 
+  GPA: {Student.objects.get(id=11).gpa}\n
+  ''')  
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -278,11 +284,13 @@ VALUES ('Kyle', 'Harwood', 9, 3.0)
 # Then query the studets table to get that student by their id
 # Print the new student's id, full name, and gpa to the terminal
 def problem_six(request):
-
-    # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
-
-    return complete(request)
+  #update_student = Student.objects.filter(id = 11).update(gpa = 4.5)
+  print(f'''
+  Id: {Student.objects.get(id=11).id}\n 
+  Full Name: {Student.objects.get(id=11).first_name} {Student.objects.get(id=11).last_name}\n  
+  GPA: {Student.objects.get(id=11).gpa}\n
+  ''')  
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -326,15 +334,17 @@ LIMIT 21
 # Check your MySQL Workbench to confirm the student is no longer in the table!
 def problem_seven(request):
 
-    # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
+  #delete_student = Student.objects.filter(id = 11).delete()
 
-    try:
-        student = Student.objects.get(pk=student_id)
-    except ObjectDoesNotExist:
-        print('Great! It failed and couldnt find the object because we deleted it!')
+  # Make sure to set this equal to the primary key of the row you just created!
+  student_id = 11
 
-    return complete(request)
+  try:
+      student = Student.objects.get(pk=student_id)
+  except ObjectDoesNotExist:
+      print('Great! It failed and couldnt find the object because we deleted it!')
+
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -384,9 +394,10 @@ SELECT `school_db_student`.`id`,
 # Find all of the instructors that only belong to a single course
 # Print out the instructors full name and number of courses to the console
 def bonus_problem(request):
-
-    return complete(request)
-
+  
+   id_count = Course.objects.filter(instrutor_id__lt=2)
+  
+   return complete(request)
 
 # Supporting Query Method Documentation:
 """
